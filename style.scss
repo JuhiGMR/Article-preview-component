@@ -1,0 +1,314 @@
+// Colors
+$very-dark-grayish-blue: hsl(217, 19%, 35%);
+$desaturated-dark-blue: hsl(214, 17%, 51%);
+$grayish-blue: hsl(212, 23%, 69%);
+$light-grayish-blue: hsl(210, 46%, 95%);
+$white: hsl(0, 0%, 100%);
+$radius: 12px;
+
+// Spacing
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 40px;
+
+// Breakpoints
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Fonts
+$font-family-primary: 'Manrope', sans-serif;
+$font-weight-regular: 500;
+$font-weight-bold: 700;
+
+// Reset
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   font-family: $font-family-primary;
+   background-color: $light-grayish-blue;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   min-height: 100vh;
+   padding: $spacing-lg;
+   line-height: 1.5;
+   gap: 2rem;
+}
+
+// ==============================
+// Card Layout
+// ==============================
+.card {
+   background-color: $white;
+   border-radius: $radius;
+   // overflow: hidden;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+   max-width: 327px;
+   width: 100%;
+   position: relative;
+
+   @media (min-width: $breakpoint-desktop) {
+      display: grid;
+      grid-template-columns: 381px 1fr;
+      max-width: 860px;
+   }
+
+   &__image {
+      @media (min-width: $breakpoint-desktop) {
+         grid-row: 1 / -1;
+      }
+
+      img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         display: block;
+      }
+   }
+
+   &__content {
+      padding: 1.8rem 1.8rem 1rem 1.8rem;
+
+      @media (min-width: $breakpoint-desktop) {
+         padding: 2rem 2.5rem 0 2.5rem;
+      }
+   }
+
+   &__title {
+      color: $very-dark-grayish-blue;
+      font-weight: $font-weight-bold;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      line-height: 1.4;
+      margin-bottom: 0.8rem;
+
+      @media (min-width: $breakpoint-desktop) {
+         font-size: 1.25rem;
+         margin-bottom: 1rem;
+      }
+   }
+
+   &__description {
+      color: $desaturated-dark-blue;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      line-height: 1.6;
+
+      @media (min-width: $breakpoint-desktop) {
+         font-size: 0.8125rem;
+      }
+   }
+
+   &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 1.5rem 1.8rem;
+      transition: background-color 0.3s ease;
+
+      @media (min-width: $breakpoint-desktop) {
+         padding: 1.25rem 2.5rem 2rem 2.5rem;
+      }
+
+      // Mobile active state - footer changes background
+      &.share-active {
+         @media (max-width: 768px) {
+            background-color: $very-dark-grayish-blue;
+         }
+      }
+   }
+
+   &__author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: opacity 0.3s ease;
+
+      // Hide author on mobile when share is active
+      .share-active & {
+         @media (max-width: 768px) {
+            opacity: 0;
+            pointer-events: none;
+         }
+      }
+
+      img {
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+      }
+
+      &-name {
+         color: $very-dark-grayish-blue;
+         font-weight: $font-weight-bold;
+         font-size: clamp(0.9rem, 1.5vw, 1rem);
+
+         @media (min-width: $breakpoint-desktop) {
+            font-size: 0.8125rem;
+         }
+      }
+
+      &-info p {
+         margin: 0;
+      }
+   }
+
+   &__date {
+      color: $grayish-blue;
+      font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+
+      @media (min-width: $breakpoint-desktop) {
+         font-size: 0.8125rem;
+      }
+   }
+
+   &__share-btn {
+      position: relative;
+      background-color: $light-grayish-blue;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 20;
+
+      @media (max-width: 768px) {
+         // Mobile - stays in same position
+      }
+
+      @media (min-width: 800px) {
+         // Desktop - absolute positioning
+         position: absolute;
+         bottom: 1.25rem;
+         right: 2.5rem;
+      }
+
+      &:hover {
+         background-color: $desaturated-dark-blue;
+
+         img {
+            filter: brightness(0) invert(1);
+         }
+      }
+
+      &.active {
+         background-color: $desaturated-dark-blue;
+
+         img {
+            filter: brightness(0) invert(1);
+         }
+      }
+
+      img {
+         width: 16px;
+         height: 16px;
+         transition: filter 0.3s ease;
+      }
+   }
+
+   &__share-popup {
+      position: absolute;
+      background: $very-dark-grayish-blue;
+      color: $white;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 0.8125rem;
+      z-index: 10;
+
+      // Mobile styles
+      @media (max-width: 768px) {
+         bottom: 10;
+         right: 0;
+         left: 0;
+         padding: 1.5rem 1.8rem;
+         border-radius: 0 0 $radius $radius;
+         justify-content: flex-start;
+         transform: translateY(0);
+      }
+
+      // Desktop styles
+      @media (min-width: 800px) {
+         bottom: 95px;
+         right: -60px;
+         border-radius: $radius;
+         padding: 1.125rem 2.25rem;
+         transform: translateY(10px);
+         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+         &::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 10px solid $very-dark-grayish-blue;
+         }
+      }
+
+      &.active {
+         opacity: 1;
+         pointer-events: auto;
+         transform: translateY(0);
+      }
+
+      .share-popup__label {
+         font-size: 0.8125rem;
+         color: $grayish-blue;
+         letter-spacing: 5px;
+      }
+
+      .share-popup__link {
+         display: flex;
+         align-items: center;
+      }
+
+      img {
+         width: 20px;
+         height: 20px;
+         cursor: pointer;
+         transition: transform 0.2s;
+
+         &:hover {
+            transform: scale(1.15);
+         }
+      }
+   }
+}
+
+.attribution {
+   font-size: 11px;
+   text-align: center;
+   color: $grayish-blue;
+
+   a {
+      color: $very-dark-grayish-blue;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+         color: $desaturated-dark-blue;
+      }
+   }
+}
