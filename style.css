@@ -22,6 +22,7 @@ body {
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   max-width: 327px;
   width: 100%;
@@ -32,6 +33,7 @@ body {
     display: grid;
     grid-template-columns: 381px 1fr;
     max-width: 860px;
+    overflow: visible;
   }
 }
 @media (min-width: 1024px) {
@@ -149,7 +151,8 @@ body {
 @media (min-width: 800px) {
   .card__share-btn {
     position: absolute;
-    bottom: 1.25rem;
+    top: 45%;
+    transform: translateY(-50%);
     right: 2.5rem;
   }
 }
